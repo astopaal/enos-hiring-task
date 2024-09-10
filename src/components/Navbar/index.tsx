@@ -1,5 +1,5 @@
 import React from 'react'
-import EnosIcon from '../assets/icons/enos-icon.png'
+import EnosIcon from '../../assets/icons/enos-icon.png'
 type Props = {}
 
 const Navbar = (props: Props) => {

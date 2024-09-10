@@ -6,7 +6,7 @@ export default {
   ],
   theme: {
     extend: {},
-    colors: { navbarBackground: "#296573", navbarText: "#fff" },
+    colors: { navbarBackground: "#296573", navbarText: "#fff", borderGray: "#DBDFE9", black: "#000", cardText: '#313131' },
     fontFamily: {
       'inter': ['Inter', 'sans-serif']
     }
