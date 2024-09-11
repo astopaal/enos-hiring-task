@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "UseWeather.tsx"]
+  "include": ["src", "src/hooks/UseWeather.tsx"]
 }

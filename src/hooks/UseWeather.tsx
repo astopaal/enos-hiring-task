@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import useWeatherStore from './src/store/weatherStore';
-import { WeatherApiResponse } from './src/types/WeatherTypes';
+import useWeatherStore from '../store/weatherStore';
+import { WeatherApiResponse } from '../types/WeatherTypes';
 
 const useWeather = (city: string) => {
   const { fetchWeatherData } = useWeatherStore();
