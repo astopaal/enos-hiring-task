@@ -8,7 +8,7 @@ import Loading from "../Loading";
 
 const WeatherList = () => {
   const { selectedCity } = useCityStore();
-  const { weatherData, isLoading, isError, setSelectedDay } = useWeatherStore();
+  const { weatherData, isLoading, isError } = useWeatherStore();
 
   const dateOptions: any = {
     year: "numeric",

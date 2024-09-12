@@ -1,8 +1,6 @@
-import React from 'react'
 import EnosIcon from '/assets/icons/enos-icon.png'
-type Props = {}
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
     return (
         <div className="bg-navbarBackground w-full h-20 flex items-center">
             <div className='w-[1040px] flex md:justify-between justify-center mx-auto my-auto font-inter text-navbarText'>
