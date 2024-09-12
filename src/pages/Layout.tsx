@@ -2,10 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
-
-type Props = {}
-
-const DefaultLayout : React.FC = (props : Props) => {
+const DefaultLayout : React.FC = () => {
     return (
         <div className="relative h-screen overflow-hidden">
             <Navbar />

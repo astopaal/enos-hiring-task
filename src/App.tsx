@@ -1,12 +1,9 @@
 import React, { Suspense, lazy } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import routes from './config/routes';
-
-type Props = {}
-
 const DefaultLayout = lazy(() => import('./pages/Layout'));
 
-const App: React.FC = (props: Props) => {
+const App: React.FC = () => {
   return (
     <>
       <BrowserRouter>
