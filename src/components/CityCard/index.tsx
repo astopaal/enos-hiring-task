@@ -90,7 +90,7 @@ const CityCard: FC<Props> = () => {
           )}
         </div>
       ) : isLoading ? (
-        <div className="border border-borderGray rounded-[10px] md:w-[640px] flex flex-col items-center justify-center font-inter py-16">
+        <div className="md:w-[360px] flex flex-col items-center justify-center font-inter py-16">
           <Loading />
         </div>
       ) : (
