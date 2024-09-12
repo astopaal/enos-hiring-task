@@ -2,12 +2,13 @@ import { FC, useEffect } from "react";
 import useCityStore from "../../store/cityStore";
 import useWeatherStore from "../../store/weatherStore";
 import Icon from "../Icon";
+import Loading from "../Loading";
 
 type Props = {};
 
 const CityCard: FC<Props> = () => {
   const { selectedCity } = useCityStore();
-  const { weatherData, fetchWeatherData, isLoading, isError } =
+  const { weatherData, fetchWeatherData, isLoading, isError, selectedDay } =
     useWeatherStore();
 
   const formatDate = (datetime: string | undefined): string => {
@@ -47,21 +48,33 @@ const CityCard: FC<Props> = () => {
           {!isError ? (
             <>
               <p className="font-inet font-bold text-[68px] text-degree">
-                {Math.round(Number(weatherData[selectedCity]?.data[0].temp))} °C
+                {Math.round(
+                  Number(weatherData[selectedCity]?.data[selectedDay].temp)
+                )}{" "}
+                °C
               </p>
               <div className="flex flex-col gap-[10px]">
                 <p className="font-bold text-[32px]">
                   {weatherData[selectedCity]?.city_name}
                 </p>
-                <p className="text-base font-normal leading-[19.36px]">{formatDate(weatherData[selectedCity]?.data[0].datetime)}</p>
+                <p className="text-base font-normal leading-[19.36px]">
+                  {formatDate(
+                    weatherData[selectedCity]?.data[selectedDay].datetime
+                  )}
+                </p>
               </div>
               <div className="flex gap-[10px] items-center justify-between">
                 <Icon
-                  iconCode={weatherData[selectedCity]?.data[0].weather.icon}
+                  iconCode={
+                    weatherData[selectedCity]?.data[selectedDay].weather.icon
+                  }
                   size={32}
                 />
                 <p className="text-degree text-sm">
-                  {weatherData[selectedCity]?.data[0].weather.description}
+                  {
+                    weatherData[selectedCity]?.data[selectedDay].weather
+                      .description
+                  }
                 </p>
               </div>
             </>
@@ -69,13 +82,17 @@ const CityCard: FC<Props> = () => {
             <>
               <div className="flex flex-col gap-[10px]">
                 <p className="font-bold text-[32px]">Does not Exist</p>
-                <p className="text-base font-normal leading-[19.36px]">Type a valid city name to get weekly forecast data.</p>
+                <p className="text-base font-normal leading-[19.36px]">
+                  Type a valid city name to get weekly forecast data.
+                </p>
               </div>
             </>
           )}
         </div>
       ) : isLoading ? (
-        <div>Loading...</div>
+        <div className="border border-borderGray rounded-[10px] md:w-[640px] flex flex-col items-center justify-center font-inter py-16">
+          <Loading />
+        </div>
       ) : (
         <>
           <p className="text-[32px] font-bold text-cardText">Select a City</p>

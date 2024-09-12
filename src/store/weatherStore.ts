@@ -7,12 +7,15 @@ interface WeatherStore {
   isLoading: boolean;
   isError: boolean;
   fetchWeatherData: (city: string) => Promise<WeatherApiResponse>;
+  selectedDay: number;
+  setSelectedDay : (dayIndex: number) => void;
 }
 
 const useWeatherStore = create<WeatherStore>((set, get) => ({
   weatherData: {},
   isLoading: false,
   isError: false,
+  selectedDay : 0,
   fetchWeatherData: async (city: string) => {
     const { weatherData } = get();
 
@@ -52,6 +55,7 @@ const useWeatherStore = create<WeatherStore>((set, get) => ({
       throw error;
     }
   },
+  setSelectedDay: (dayIndex: number) => set({ selectedDay: dayIndex }),
 }));
 
 export default useWeatherStore;

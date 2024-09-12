@@ -1,15 +1,14 @@
-import React from "react";
 import HomeImage from "/assets/img/Home.png";
 import NotExistImage from "/assets/img/NotExist.png";
 import useCityStore from "../../store/cityStore";
 import useWeatherStore from "../../store/weatherStore";
 import WeatherListHeaderTitleItem from "../WeatherListHeaderTitleItem";
+import WeatherListItem from "../WeatherListItem";
+import Loading from "../Loading";
 
-type Props = {};
-
-const WeatherList = (props: Props) => {
+const WeatherList = () => {
   const { selectedCity } = useCityStore();
-  const { weatherData, isLoading, isError } = useWeatherStore();
+  const { weatherData, isLoading, isError, setSelectedDay } = useWeatherStore();
 
   const dateOptions: any = {
     year: "numeric",
@@ -52,32 +51,18 @@ const WeatherList = (props: Props) => {
           </div>
           {weatherData[selectedCity]?.data.slice(0, 7).map((day, index) => (
             <div className="flex flex-col divide-y divide-tableBorder">
-              <div
-                className="flex items-center divide-x divide-tableBorder font-inter font-normal text-sm leading-[14px] text-tableTdItemText"
-                key={index}
-              >
-                <div className="md:w-[120px] md:h-[66px] pl-5 flex items-center">
-                  <p>
-                    {new Date(day.datetime).toLocaleDateString("en-US", {
-                      weekday: "long",
-                    })}
-                  </p>
-                </div>
-                <div className="w-[240px] md:h-[66px] pl-5 flex items-center">
-                  <p>
-                    {new Date(day.datetime).toLocaleDateString(
-                      "en-US",
-                      dateOptions
-                    )}
-                  </p>
-                </div>
-                <div className="w-[140px] md:h-[66px] pl-5 flex items-center">
-                  <p>{day.min_temp}°C</p>
-                </div>
-                <div className="w-[140px] md:h-[66px] pl-5 flex items-center">
-                  <p>{day.max_temp}°C</p>
-                </div>
-              </div>
+              <WeatherListItem
+                index={index}
+                dayName={new Date(day.datetime).toLocaleDateString("en-US", {
+                  weekday: "long",
+                })}
+                date={new Date(day.datetime).toLocaleDateString(
+                  "en-US",
+                  dateOptions
+                )}
+                minTemp={day.min_temp}
+                maxTemp={day.min_temp}
+              />
             </div>
           ))}
         </div>
@@ -88,7 +73,9 @@ const WeatherList = (props: Props) => {
           alt="not-exist"
         />
       ) : (
-        <div>Loading...</div>
+        <div className="border border-borderGray rounded-[10px] md:w-[640px] flex flex-col items-center justify-center font-inter py-16">
+          <Loading />
+        </div>
       )}
     </div>
   );
