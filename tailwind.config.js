@@ -13,7 +13,8 @@ export default {
       tableHeaderText : "#071437",
       tableHeaderBg : "#FCFCFC",
       tableBorder : "#F1F1F4",
-      tableThText : "#4B5675"
+      tableThText : "#4B5675",
+      tableTdItemText : "#252F4A",
     },
     fontFamily: {
       inter: ["Inter", "sans-serif"],

@@ -7,7 +7,8 @@ type Props = {};
 
 const CityCard: FC<Props> = () => {
   const { selectedCity } = useCityStore();
-  const { weatherData, fetchWeatherData, isLoading, isError } = useWeatherStore();
+  const { weatherData, fetchWeatherData, isLoading, isError } =
+    useWeatherStore();
 
   const formatDate = (datetime: string | undefined): string => {
     if (!datetime) return "N/A";
@@ -15,9 +16,15 @@ const CityCard: FC<Props> = () => {
       const date = new Date(datetime);
 
       //the reason for this usage is that the date display in the design does not match the default
-      const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date);
-      const day = new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(date);
-      const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date);
+      const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
+        date
+      );
+      const day = new Intl.DateTimeFormat("en-US", { day: "numeric" }).format(
+        date
+      );
+      const weekday = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+      }).format(date);
 
       return `${month} ${day}, ${weekday}`;
     } catch (error) {
@@ -37,19 +44,35 @@ const CityCard: FC<Props> = () => {
     <div className="w-[360px] border border-borderGray rounded-xl p-10 flex flex-col items-center text-center justify-center gap-[10px] font-inter">
       {!isLoading && selectedCity ? (
         <div className="flex flex-col justify-between items-center gap-10">
-          <p className="font-inet font-bold text-[68px] text-degree">
-            {Math.round(Number(weatherData[selectedCity]?.data[0].temp))} °C
-          </p>
-          <div className="flex flex-col gap-[10px]">
-            <p className="font-bold text-[32px]">
-              {weatherData[selectedCity]?.city_name}
-            </p>
-            <p>{formatDate(weatherData[selectedCity]?.data[0].datetime)}</p>
-          </div>
-          <div className="flex gap-[10px] items-center justify-between">
-          <Icon iconCode={weatherData[selectedCity]?.data[0].weather.icon} size={32} />
-            <p className="text-degree text-sm">{weatherData[selectedCity]?.data[0].weather.description}</p>
-          </div>
+          {!isError ? (
+            <>
+              <p className="font-inet font-bold text-[68px] text-degree">
+                {Math.round(Number(weatherData[selectedCity]?.data[0].temp))} °C
+              </p>
+              <div className="flex flex-col gap-[10px]">
+                <p className="font-bold text-[32px]">
+                  {weatherData[selectedCity]?.city_name}
+                </p>
+                <p className="text-base font-normal leading-[19.36px]">{formatDate(weatherData[selectedCity]?.data[0].datetime)}</p>
+              </div>
+              <div className="flex gap-[10px] items-center justify-between">
+                <Icon
+                  iconCode={weatherData[selectedCity]?.data[0].weather.icon}
+                  size={32}
+                />
+                <p className="text-degree text-sm">
+                  {weatherData[selectedCity]?.data[0].weather.description}
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex flex-col gap-[10px]">
+                <p className="font-bold text-[32px]">Does not Exist</p>
+                <p className="text-base font-normal leading-[19.36px]">Type a valid city name to get weekly forecast data.</p>
+              </div>
+            </>
+          )}
         </div>
       ) : isLoading ? (
         <div>Loading...</div>

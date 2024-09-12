@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import CONSTANS from '../utils/constants';
-import { WeatherApiResponse } from '../types/WeatherTypes';
+import { create } from "zustand";
+import CONSTANS from "../utils/constants";
+import { WeatherApiResponse } from "../types/WeatherTypes";
 
 interface WeatherStore {
   weatherData: Record<string, WeatherApiResponse | null>;
@@ -14,7 +14,7 @@ const useWeatherStore = create<WeatherStore>((set, get) => ({
   isLoading: false,
   isError: false,
   fetchWeatherData: async (city: string) => {
-    const { weatherData, isLoading, isError } = get();
+    const { weatherData } = get();
 
     if (weatherData[city]) {
       console.log("Using cached weather forecast data.");
@@ -24,18 +24,29 @@ const useWeatherStore = create<WeatherStore>((set, get) => ({
     set({ isLoading: true, isError: false });
 
     try {
-      const response = await fetch(`${CONSTANS.BASE_URL}?city=${city}&country=TR&key=${import.meta.env.VITE_API_KEY}`);
-      const data: WeatherApiResponse = await response.json();
+      const response = await fetch(
+        `${CONSTANS.BASE_URL}?city=${city}&country=TR&key=${
+          import.meta.env.VITE_API_KEY
+        }`
+      );
 
-      set((state) => ({
-        weatherData: {
-          ...state.weatherData,
-          [city]: data,
-        },
-        isLoading: false,
-      }));
+      if (response.status === 200) {
+        const data: WeatherApiResponse = await response.json();
 
-      return data;
+        set((state) => ({
+          weatherData: {
+            ...state.weatherData,
+            [city]: data,
+          },
+          isLoading: false,
+        }));
+
+        return data;
+      } else if (response.status === 204) {
+        throw new Error("No data found for the given city.");
+      } else {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
     } catch (error) {
       set({ isLoading: false, isError: true });
       throw error;
