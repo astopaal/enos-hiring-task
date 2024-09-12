@@ -16,7 +16,7 @@ const WeatherListHeaderTitleItem: React.FC<WeatherListHeaderTitleItemProps> = ({
       className="pl-5 bg-tableHeaderBg flex items-center"
       style={{ height, width }}
     >
-      <p className="font-normal text-[13px] leading-[14px] text-tableThText">
+      <p className="font-normal md:text-[13px] text-xs leading-[14px] text-tableThText">
         {text}
       </p>
     </div>

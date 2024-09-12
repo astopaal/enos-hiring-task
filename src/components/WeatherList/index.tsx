@@ -19,15 +19,15 @@ const WeatherList = () => {
   return (
     <div>
       {!selectedCity ? (
-        <img src={HomeImage} className="w-[160px] md:w-[640px]" alt="home" />
+        <img src={HomeImage} className="w-[360px] md:w-[640px]" alt="home" />
       ) : !isLoading && !isError ? (
-        <div className="border border-borderGray rounded-[10px] md:w-[640px] flex flex-col divide-y divide-tableBorder font-inter">
+        <div className="border border-borderGray rounded-[10px] md:w-[640px] w-[360px] flex flex-col divide-y divide-tableBorder font-inter">
           <div className="table-header p-5 flex items-center md:h-[66px]">
             <p className="font-semibold text-base leading-4 text-tableHeaderText">
               Weather Forecast for {selectedCity}
             </p>
           </div>
-          <div className="th flex divide-x divide-tableBorder">
+          <div className="th md:flex divide-x divide-tableBorder hidden">
             <WeatherListHeaderTitleItem
               height="40px"
               width="120px"
@@ -69,7 +69,7 @@ const WeatherList = () => {
       ) : isError ? (
         <img
           src={NotExistImage}
-          className="w-[160px] md:w-[640px]"
+          className="w-[360px] md:w-[640px]"
           alt="not-exist"
         />
       ) : (
