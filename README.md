@@ -3,6 +3,9 @@
 
 This project is a simple weather forecasting web application built using React and TypeScript. It allows users to search for weather data of cities using the Weatherbit API.
 
+[Live Demo](https://enos-hiring-task-hmwe-git-main-astopaals-projects.vercel.app/)
+
+
 ## Features
 
 - Search for weather data by city name
